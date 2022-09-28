@@ -5,6 +5,7 @@ venv/
 
 # SQLite
 db.sqlite3
+/post-app/backend/post/migrations/
 
 #
 # Nodejs
