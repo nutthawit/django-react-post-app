@@ -3,6 +3,22 @@ import React, {useEffect} from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchPosts, selectAllPosts } from './postSlice';
 
+type Post = {
+    id: number;
+    title: string;
+    content: string;
+    author: number;
+}
+
+function PostExcerpt({ id, title, content, author }: Post) {
+    return (
+        <article className="post-excerpt" key={id}>
+            <h3>{title}</h3>
+            <p className="post-content">{content.substring(0, 100)}</p>
+        </article>
+    )
+}
+
 export const PostList = () => {
     const dispatch = useAppDispatch();
     const posts = useAppSelector(selectAllPosts);
@@ -16,8 +32,23 @@ export const PostList = () => {
         }
     }, [postStatus, dispatch])
 
+    let content
+
+    if (postStatus === 'loading') {
+
+    } else if (postStatus === 'succeeded') {
+        content = posts.map((post) => (
+            <PostExcerpt id={post.id} title={post.title} content={post.content} author={post.author} />
+        ))
+    } else if (postStatus === 'failed') {
+        content = <div>{error}</div>
+    }
+
     return (
-        <h2>Posts</h2>
+        <section className="posts-list">
+            <h2>Posts</h2>
+            {content}
+        </section>
     )
 }
 
