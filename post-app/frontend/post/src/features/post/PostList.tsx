@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchPosts, selectAllPosts } from './postSlice';
+import { PostAuthor } from "./PostAuthor";
 
 type Post = {
     id: number;
@@ -14,6 +15,7 @@ function PostExcerpt({ id, title, content, author }: Post) {
     return (
         <article className="post-excerpt" key={id}>
             <h3>{title}</h3>
+            <PostAuthor userId={author}  toExponential={}/>
             <p className="post-content">{content.substring(0, 100)}</p>
         </article>
     )
